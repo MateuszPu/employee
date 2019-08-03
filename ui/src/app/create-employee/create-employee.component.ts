@@ -1,6 +1,7 @@
 import { EmployeeService } from './../employee.service';
 import { Employee } from './../employee';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-employee',
@@ -8,28 +9,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-employee.component.css']
 })
 export class CreateEmployeeComponent implements OnInit {
-
-  employee: Employee = new Employee();
+  registerForm: FormGroup;
   submitted = false;
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern("^[2-9][0-9]\\d\\-?[2-9]([02-9]{2}|[02-9]\\d||\\d[02-9])\\-?\\d{4}$")]]
+    });
   }
+
+  get form() { return this.registerForm.controls; }
 
   newEmployee(): void {
     this.submitted = false;
-    this.employee = new Employee();
   }
 
   save() {
-    this.employeeService.createEmployee(this.employee)
-      .subscribe(data => console.log(data), error => console.log(error));
-    this.employee = new Employee();
+    this.employeeService.createEmployee(this.registerForm.value)
+        .subscribe(data => console.log(data), error => console.log(error));
   }
 
   onSubmit() {
     this.submitted = true;
+    if (this.registerForm.invalid) {
+      return;
+    }
     this.save();
   }
 }
