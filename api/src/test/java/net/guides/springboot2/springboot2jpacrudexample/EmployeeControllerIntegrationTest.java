@@ -58,7 +58,7 @@ public class EmployeeControllerIntegrationTest {
 	@Test
 	public void testCreateEmployee() {
 		Employee employee = new Employee();
-		employee.setEmailId("admin@gmail.com");
+		employee.setEmail("admin@gmail.com");
 		employee.setFirstName("admin");
 		employee.setLastName("admin");
 
