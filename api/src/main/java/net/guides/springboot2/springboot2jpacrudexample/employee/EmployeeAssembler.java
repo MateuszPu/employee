@@ -8,6 +8,6 @@ public class EmployeeAssembler {
 
 	@Bean
 	public EmployeeService employeeService(EmployeeRepository employeeRepository) {
-		return new EmployeeFacade(employeeRepository);
+		return new EmployeeServiceImpl(employeeRepository);
 	}
 }

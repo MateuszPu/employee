@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> globleExcpetionHandler(Exception ex, WebRequest request) {
+	ResponseEntity<?> globleExcpetionHandler(Exception ex, WebRequest request) {
 		log.error("[ERROR] {}", ex.getMessage());
 		ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(), "Ups something goes wrong", request.getDescription(false));
 		return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);

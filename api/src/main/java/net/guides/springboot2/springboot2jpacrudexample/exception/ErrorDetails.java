@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
-public class ErrorDetails {
+class ErrorDetails {
 	private LocalDateTime dateTime;
 	private String message;
 	private String details;

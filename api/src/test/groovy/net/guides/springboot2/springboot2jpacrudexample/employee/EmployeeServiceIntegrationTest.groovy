@@ -26,7 +26,7 @@ class EmployeeServiceIntegrationTest extends Specification {
     private EmployeeService underTest
 
     def setup() {
-        underTest = new EmployeeFacade(employeeRepository)
+        underTest = new EmployeeServiceImpl(employeeRepository)
         employeeRepository.deleteAll()
     }
 
