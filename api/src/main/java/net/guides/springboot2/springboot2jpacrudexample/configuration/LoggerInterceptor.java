@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.stream.Collectors;
 
 @Slf4j
 class LoggerInterceptor extends HandlerInterceptorAdapter {
@@ -17,8 +16,7 @@ class LoggerInterceptor extends HandlerInterceptorAdapter {
 		String ipAddress = request.getRemoteAddr();
 		String url = request.getRequestURI();
 		String method = request.getMethod();
-		String body = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		log.info("Request {} with body {} to {} requested by {} at {}", method, body, url, ipAddress, LocalDateTime.now().atZone(ZoneId.of("UTC")));
+		log.info("[INFO] Request {} to {} requested by {} at {}", method, url, ipAddress, LocalDateTime.now().atZone(ZoneId.of("UTC")));
 		return super.preHandle(request, response, handler);
 	}
 }
