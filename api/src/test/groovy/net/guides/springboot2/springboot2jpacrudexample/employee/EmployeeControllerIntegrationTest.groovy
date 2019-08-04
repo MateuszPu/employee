@@ -66,7 +66,7 @@ class EmployeeControllerIntegrationTest extends Specification {
         final String FIRST_NAME = "firstName"
         final String LAST_NAME = "lasName"
         final String EMAIL = "Email@as.pl"
-        final String PHONE_NUMBER = "123435"
+        final String PHONE_NUMBER = "585-255-0555"
         ObjectMapper mapper = new ObjectMapper()
         CreateEmployee request = new CreateEmployee(FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER)
         employeeService.create(request) >> ResponseEntity.ok(EMPLOYEE_ID)
@@ -88,7 +88,7 @@ class EmployeeControllerIntegrationTest extends Specification {
         final String FIRST_NAME = "firstName"
         final String LAST_NAME = "lasName"
         final String EMAIL = "Email@as.pl"
-        final String PHONE_NUMBER = "123435"
+        final String PHONE_NUMBER = "585-255-0555"
         ObjectMapper mapper = new ObjectMapper()
         UpdateEmployee request = new UpdateEmployee(FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER)
         EmployeeView response = new EmployeeView(EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER)
@@ -119,7 +119,7 @@ class EmployeeControllerIntegrationTest extends Specification {
     }
 
     @Unroll
-    def 'should return bad request for #request when #description'() {
+    def 'should return bad request when #request when #description'() {
         when:
         ResultActions result = this.mockMvc.perform(post(rootUrl())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -130,13 +130,15 @@ class EmployeeControllerIntegrationTest extends Specification {
                 .andExpect(status().isBadRequest())
 
         where:
-        description                                   | request
-        "phoneNumber is null"                          | createEmployeeRequest("firstName", "lastName", "email@pcz.pl", null)
-        "email is null"                               | createEmployeeRequest("firstName", "lastName", null, "1234")
-        "lastName is null"                            | createEmployeeRequest("firstName", null, "email@pcz.pl", "1234")
-        "firstName is null"                           | createEmployeeRequest(null, "lastName", "email@pcz.pl", "1234")
-        "email invalid@ is not correct address email" | createEmployeeRequest("firstName", "lastName", "invalid@", "1234")
-        "email invalid is not correct address email"  | createEmployeeRequest("firstName", "lastName", "invalid", "1234")
+        description                                       | request
+        "phoneNumber is null"                             | createEmployeeRequest("firstName", "lastName", "email@pcz.pl", null)
+        "phoneNumber 185-255-0555 is invalid phoneNumber" | createEmployeeRequest("firstName", "lastName", "invalid", "185-255-0555")
+        "phoneNumber 085-255-0555 is invalid phoneNumber" | createEmployeeRequest("firstName", "lastName", "invalid", "085-255-0555")
+        "email is null"                                   | createEmployeeRequest("firstName", "lastName", null, "585-255-0555")
+        "lastName is null"                                | createEmployeeRequest("firstName", null, "email@pcz.pl", "585-255-0555")
+        "firstName is null"                               | createEmployeeRequest(null, "lastName", "email@pcz.pl", "585-255-0555")
+        "email invalid@ is invalid address email"         | createEmployeeRequest("firstName", "lastName", "invalid@", "585-255-0555")
+        "email invalid is invalid address email"          | createEmployeeRequest("firstName", "lastName", "invalid", "585-255-0555")
 
     }
 

@@ -7,18 +7,21 @@ import lombok.Getter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @EqualsAndHashCode
 public class UpdateEmployee {
-	@NotNull
+
+	@NotNull(message = "First name cannot be null")
 	private final String firstName;
-	@NotNull
+	@NotNull(message = "Last name cannot be null")
 	private final String lastName;
-	@NotNull
-	@Email
+	@NotNull(message = "Email cannot be null")
+	@Email(message = "Email should be a real email address")
 	private final String email;
-	@NotNull
+	@NotNull(message = "Phone number cannot be null")
+	@Pattern(regexp = "^[2-9][0-9]\\d\\-?[2-9]([02-9]{2}|[02-9]\\d||\\d[02-9])\\-?\\d{4}$", message = "Phone number should be a real US phone number")
 	private final String phoneNumber;
 
 	@JsonCreator
