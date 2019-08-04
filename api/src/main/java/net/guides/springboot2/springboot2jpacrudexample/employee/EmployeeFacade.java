@@ -36,7 +36,7 @@ class EmployeeFacade implements EmployeeService {
 
 	@Override
 	public ResponseEntity<EmployeeView> update(String employeeId, UpdateEmployee updateEmployee) {
-		return null;
+		throw new IllegalStateException("not umplemented");
 	}
 
 	@Override

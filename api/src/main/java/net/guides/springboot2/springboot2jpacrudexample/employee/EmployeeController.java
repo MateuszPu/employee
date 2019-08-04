@@ -41,7 +41,7 @@ class EmployeeController {
 
 	@PutMapping("/employees/{id}")
 	public ResponseEntity<EmployeeView> updateEmployee(@PathVariable(value = "id") String employeeId,
-												   @Valid @RequestBody UpdateEmployee updateEmployee) {
+													   @Valid @RequestBody UpdateEmployee updateEmployee) {
 		return employeeService.update(employeeId, updateEmployee);
 	}
 

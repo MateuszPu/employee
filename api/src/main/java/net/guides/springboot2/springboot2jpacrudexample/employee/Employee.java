@@ -8,10 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 @Getter
-@Setter
 class Employee {
 
 	@Id
+	@Setter
 	private String id;
 	private final String firstName;
 	private final String lastName;
